@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('build') {
       steps {
-        sh 'mvn -f javademos/javademos-master/pom.xml -B -DskipTests clean package'
+        sh 'mvn -f javademos-master/ssgsems/pom.xml -B -DskipTests clean package'
+        archiveArtifacts(artifacts: '**/target/*.war', fingerprint: true)
+        sh '''mkdir /home/azureuserak/buildoutput/${BUILD_NUMBER} 
+cp **/target/*.war /home/azureuserak/buildoutput/${BUILD_NUMBER}'''
       }
     }
 
